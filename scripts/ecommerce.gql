@@ -1,0 +1,57 @@
+type Warehouse {
+  name: String!
+  address: Address! 
+}
+
+type Product {
+  name: String!
+  description: String!
+  price: Float!
+  warehouse: Warehouse!
+  quantity: Int!
+  backorderLimit: Int!
+  backordered: Boolean!
+}
+
+type Customer {
+  firstName: String!
+  lastName: String!
+  address: Address!
+  telephone: String!
+  creditCard: CreditCard!
+}
+
+type Order {
+  customer: Customer!
+  line: [ProductLine!]!
+  status: String!
+  creationDate: Time!
+  shipDate: Time!
+  shipAddress: Address!
+  creditCard: CreditCard!
+}
+
+type Address @embedded {
+  street: String!
+  city: String!
+  state: String!
+  zipCode: String!
+}
+
+type CreditCard @embedded {
+  network: String!
+  number: String!
+}
+
+type ProductLine @embedded {
+  product: Product!
+  quantity: Int!
+  price: Float!
+}
+
+type Query {
+  allWarehouses: [Warehouse!]!
+  allProducts: [Product!]!
+  allCustomers: [Customer!]!
+  allOrders: [Order!]!
+}
