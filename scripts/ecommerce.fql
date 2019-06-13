@@ -5,10 +5,10 @@ CreateClass({name: "Product"});
 CreateClass({name: "Customer"});
 CreateClass({name: "Order"});
 
-CreateIndex({"name": "all_warehouses", "source": Class("Warehouse")});
-CreateIndex({"name": "all_products", "source": Class("Product")});
-CreateIndex({"name": "all_customers", "source": Class("Customer")});
-CreateIndex({"name": "all_orders", "source": Class("Order")});
+CreateIndex({"name": "allWarehouses", "source": Class("Warehouse")});
+CreateIndex({"name": "allProducts", "source": Class("Product")});
+CreateIndex({"name": "allCustomers", "source": Class("Customer")});
+CreateIndex({"name": "allOrders", "source": Class("Order")});
 
 CreateFunction(
   {
