@@ -8,6 +8,7 @@
   * [Warehouse](#warehouse)
   * [Product](#product)
   * [Customer](#customer)
+  * [Order](#order)
 
 ## Schema
 
@@ -498,3 +499,111 @@ query {
   </tr>
 </table>
 
+### Order
+
+<table>
+  <tr>
+    <th>Operation</th>
+    <th>FQL</th>
+    <th>GraphQL</th>
+  </tr>
+  <tr>
+    <td valign="top"><b>Submit an<br>Order</b></td>
+    <td valign="top">
+      <pre>
+Call(
+  Function("submit_order"), 
+    "1",
+    [
+      Object({
+        "productId": "1",
+        "requestedQuantity": 12
+      }),
+      Object({
+        "productId": "2",
+        "requestedQuantity": 22
+      }),
+      Object({
+        "productId": "3",
+        "requestedQuantity": 8
+      })
+    ]
+);</pre>
+    </td>
+    <td valign="top">
+      <pre>
+//TODO: we need to support GraphQL input type in order to use current function.</pre>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top"><b>Read an<br>Order</b></td>
+    <td valign="top">
+      <pre>
+Get(Ref(Class("Order"), "235070169871812108"));
+      </pre>
+    </td>
+    <td valign="top">
+      <pre>
+query {
+  findCustomerByID(id: "1520225686617873") {
+    firstName
+    lastName
+    address {
+      street
+      city
+      state
+      zipCode
+    }
+    telephone
+    creditCard {
+      network
+      number
+    }
+  }
+}</pre>
+    </td>
+  </tr>
+    <tr>
+    <td valign="top"><b>Read all<br>Orders</b></td>
+    <td valign="top">
+     <pre>
+Map(
+  Paginate(Match(Index("allOrders"))),
+  Lambda("nextRef", Get(Var("nextRef")))
+);</pre>
+    </td>
+    <td valign="top">
+      <pre>
+// TODO: reading the 'Product' from the 'line' does not work. It seems that relationships from embedded objects are not working properly.
+query {
+  allOrders {
+    data {
+      customer {
+        firstName
+      }
+      line {
+        product {
+          name
+        }
+        quantity
+        price
+      }
+      status
+      creationDate
+      shipDate
+      shipAddress {
+        street
+        city
+        state
+        zipCode
+      }
+      creditCard {
+        network
+        number
+      }
+    }
+  }
+}</pre>
+    </td>
+  </tr>
+</table>
