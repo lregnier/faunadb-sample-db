@@ -508,11 +508,11 @@ query {
     <th>GraphQL</th>
   </tr>
   <tr>
-    <td valign="top"><b>Submit an<br>Order</b></td>
+    <td valign="top"><b>Submit an Order</b></td>
     <td valign="top">
       <pre>
 Call(
-  Function("submit_order"), 
+  Function("submitOrder"), 
     "1",
     [
       Object({
@@ -532,7 +532,7 @@ Call(
     </td>
     <td valign="top">
       <pre>
-//TODO: we need to support GraphQL input type in order to use current function.</pre>
+//TODO: we need to support GraphQL input type in order to use current function as is.</pre>
     </td>
   </tr>
   <tr>
@@ -545,16 +545,27 @@ Get(Ref(Class("Order"), "235070169871812108"));
     <td valign="top">
       <pre>
 query {
-  findCustomerByID(id: "1520225686617873") {
-    firstName
-    lastName
-    address {
+  findOrderByID(id: "235070169871812108") {
+    _id
+    customer {
+      firstName
+    }
+    line {
+      product {
+        name
+      }
+      quantity
+      price
+    }
+    status
+    creationDate
+    shipDate
+    shipAddress {
       street
       city
       state
       zipCode
     }
-    telephone
     creditCard {
       network
       number
@@ -578,6 +589,7 @@ Map(
 query {
   allOrders {
     data {
+      _id
       customer {
         firstName
       }
