@@ -7,6 +7,7 @@
 * [Query Reference](#query-reference)
   * [Warehouse](#warehouse)
   * [Product](#product)
+  * [Customer](#customer)
 
 ## Schema
 
@@ -41,8 +42,7 @@ Create(
       }
     }
   }
-);
-	  </pre>
+);</pre>
     </td>
     <td valign="top">
       <pre>
@@ -58,8 +58,7 @@ mutation {
   }){
     _id
   }
-}
-		</pre>
+}</pre>
     </td>
   </tr>
   <tr>
@@ -82,8 +81,7 @@ query {
       zipCode
     }
   }
-}
-      </pre>
+}</pre>
     </td>
   </tr>
   <tr>
@@ -102,8 +100,7 @@ Update(
       }
     }
   }
-);
-      </pre>
+);</pre>
     </td>
     <td valign="top">
       <pre>
@@ -122,8 +119,7 @@ mutation {
   ){
     _id
   }
-}
-      </pre>
+}</pre>
     </td>
   </tr>
   <tr>
@@ -139,8 +135,7 @@ mutation {
   deleteWarehouse(id: "235072781994164739") {
     _id
   }
-}
-      </pre>
+}</pre>
     </td>
   </tr>
   <tr>
@@ -150,8 +145,7 @@ mutation {
 Map(
   Paginate(Match(Index("allWarehouses"))),
   Lambda("nextRef", Get(Var("nextRef")))
-);
-      </pre>
+);</pre>
     </td>
     <td valign="top">
       <pre>
@@ -168,8 +162,7 @@ query {
       }
     }
   }
-}
-      </pre>
+}</pre>
     </td>
   </tr>
 </table>
@@ -198,8 +191,7 @@ Create(
       "backordered": false
     }
   }
-);
-	  </pre>
+);</pre>
     </td>
     <td valign="top">
       <pre>
@@ -214,19 +206,17 @@ mutation {
     },
     backorderLimit: 10,
     backordered: false
-}){
+  }){
     _id
   } 
-}
-		</pre>
+}</pre>
     </td>
   </tr>
   <tr>
     <td valign="top"><b>Read a<br>Product</b></td>
     <td valign="top">
       <pre>
-Get(Ref(Class("Product"), "220510522473185799"));
-      </pre>
+Get(Ref(Class("Product"), "220510522473185799"));</pre>
     </td>
     <td valign="top">
       <pre>
@@ -240,8 +230,7 @@ query {
 	backorderLimit
   	backordered
   }
-}
-      </pre>
+}</pre>
     </td>
   </tr>
   <tr>
@@ -260,8 +249,7 @@ Update(
       "backordered": false
     }
   }
-);
-      </pre>
+);</pre>
     </td>
     <td valign="top">
       <pre>
@@ -279,7 +267,7 @@ mutation {
   ){
     _id
   }
-}      </pre>
+}</pre>
     </td>
   </tr>
 <tr>
@@ -295,8 +283,7 @@ mutation {
   deleteProduct(id: "220510522473185799") {
     _id
   }
-}
-      </pre>
+}</pre>
     </td>
   </tr>
     <tr>
@@ -306,25 +293,207 @@ mutation {
 Map(
   Paginate(Match(Index("allProducts"))),
   Lambda("nextRef", Get(Var("nextRef")))
-);
+);</pre>
+    </td>
+    <td valign="top">
+      <pre>
+query {
+  allProducts {
+    data {
+      _id
+      name
+      description
+      price
+      quantity
+      backorderLimit
+      backordered
+    }
+  }
+}</pre>
+    </td>
+  </tr>
+</table>
+
+### Customer
+
+<table>
+  <tr>
+    <th>Operation</th>
+    <th>FQL</th>
+    <th>GraphQL</th>
+  </tr>
+  <tr>
+    <td valign="top"><b>Create a<br>Customer</b></td>
+    <td valign="top">
+      <pre>
+Create(
+  Class("Customer"), { 
+    data: { 
+      "firstName": "Auria", 
+      "lastName": "Osgardby", 
+      "address": { 
+        "street": "87856 Mendota Court", 
+        "city": "Idaho Falls",
+        "state": "ID",
+        "zipCode": "83405" 
+      }, 
+      "telephone": "208-346-0715",
+      "creditCard": {
+        "network": "Visa",
+        "number": "4916112310613672"
+      }
+    }
+  }
+);</pre>
+    </td>
+    <td valign="top">
+      <pre>
+mutation {
+  createCustomer(data: {
+    _id
+    firstName: "Auria"
+  	lastName: "Osgardby"
+  	address: {
+     street: "87856 Mendota Court"
+     city: "Idaho Falls"
+     state: "ID"
+     zipCode: "83405"
+   },
+  	telephone: "208-346-0715"
+   creditCard: {
+     network: "Visa"
+     number: "4556781272473393"
+    }
+  }){
+    _id
+  }
+}</pre>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top"><b>Read a<br>Customer</b></td>
+    <td valign="top">
+      <pre>
+Get(Ref(Class("Customer"), "1520225686617873"));
       </pre>
     </td>
     <td valign="top">
       <pre>
 query {
-  allWarehouses {
+  findCustomerByID(id: "1520225686617873") {
+    firstName
+    lastName
+    address {
+      street
+      city
+      state
+      zipCode
+    }
+    telephone
+    creditCard {
+      network
+      number
+    }
+  }
+}</pre>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top"><b>Update a<br>Customer</b></td>
+    <td valign="top">
+     <pre>
+Update(
+  Ref(Class("Customer"), "1520225686617873"), {
+    data: { 
+      "firstName": "Auria", 
+      "lastName": "Osgardby", 
+      "address": { 
+        "street": "87856 Mendota Court", 
+        "city": "Idaho Falls",
+        "state": "ID",
+        "zipCode": "83405" 
+      }, 
+      "telephone": "719-872-8799",
+      "creditCard": {
+        "network": "Visa",
+        "number": "4916112310613672"
+      }
+    }
+  }
+);</pre>
+    </td>
+    <td valign="top">
+      <pre>
+mutation {
+  updateCustomer(
+    id: "1520225686617873"
+    data: {
+      firstName: "Auria"
+      lastName: "Osgardby"
+      address: {
+        street: "87856 Mendota Court"
+        city: "Idaho Falls"
+        state: "ID"
+        zipCode: "83405"
+      },
+      telephone: "719-872-8799"
+      creditCard: {
+        network: "Visa"
+        number: "4556781272473393"
+      }
+    }
+  ){
+    _id
+  }
+}</pre>
+    </td>
+  </tr>
+<tr>
+    <td valign="top"><b>Delete a<br>Customer</b></td>
+    <td valign="top">
+     <pre>
+Delete(Ref(Class("Customer"), "1520225686617873"))</pre>
+    </td>
+    <td valign="top">
+      <pre>
+mutation {
+  deleteCustomer(id: "1520225686617873") {
+    _id
+  }
+}</pre>
+    </td>
+  </tr>
+    <tr>
+    <td valign="top"><b>Read all<br>Customers</b></td>
+    <td valign="top">
+     <pre>
+Map(
+  Paginate(Match(Index("allCustomers"))),
+  Lambda("nextRef", Get(Var("nextRef")))
+);</pre>
+    </td>
+    <td valign="top">
+      <pre>
+query {
+  allCustomers {
     data {
-      name
+      _id
+      firstName
+      lastName
       address {
         street
         city
         state
         zipCode
       }
+      telephone
+      creditCard {
+        network
+        number
+      }
     }
   }
-}
-      </pre>
+}</pre>
     </td>
   </tr>
 </table>
