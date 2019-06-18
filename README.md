@@ -32,7 +32,7 @@ The schema represents the data model for a simple E-Commerce application.
     <td valign="top">
       <pre>
 Create(
-  Class("Warehouse"), { 
+  Class("warehouses"), { 
     data: { 
       "name": "East", 
       "address": { 
@@ -66,7 +66,7 @@ mutation {
     <td valign="top"><b>Read a<br>Warehouse</b></td>
     <td valign="top">
       <pre>
-Get(Ref(Class("Warehouse"), "1549398205020000"));
+Get(Ref(Class("warehouses"), "1549398205020000"));
       </pre>
     </td>
     <td valign="top">
@@ -90,7 +90,7 @@ query {
     <td valign="top">
      <pre>
 Update(
-  Ref(Class("Warehouse"), "1549398205020000"), {
+  Ref(Class("warehouses"), "1549398205020000"), {
     data: {
       "name": "East"
       "address": { 
@@ -127,7 +127,7 @@ mutation {
     <td valign="top"><b>Delete a<br>Warehouse</b></td>
     <td valign="top">
      <pre>
-Delete(Ref(Class("Warehouse"), "1549398205020000"))
+Delete(Ref(Class("warehouses"), "1549398205020000"))
       </pre>
     </td>
     <td valign="top">
@@ -144,7 +144,7 @@ mutation {
     <td valign="top">
      <pre>
 Map(
-  Paginate(Match(Index("allWarehouses"))),
+  Paginate(Match(Index("all_warehouses"))),
   Lambda("nextRef", Get(Var("nextRef")))
 );</pre>
     </td>
@@ -181,7 +181,7 @@ query {
     <td valign="top">
       <pre>
 Create(
-  Class("Product"), {
+  Class("products"), {
     data: {
       "name": "Cup",
       "description": "Translucent 9 Oz",
@@ -217,7 +217,7 @@ mutation {
     <td valign="top"><b>Read a<br>Product</b></td>
     <td valign="top">
       <pre>
-Get(Ref(Class("Product"), "220510522473185799"));</pre>
+Get(Ref(Class("products"), "220510522473185799"));</pre>
     </td>
     <td valign="top">
       <pre>
@@ -239,7 +239,7 @@ query {
     <td valign="top">
      <pre>
 Update(
-  Ref(Class("Product"), "220510522473185799"), {
+  Ref(Class("products"), "220510522473185799"), {
     data: {
       "name": "Cup",
       "description": "Translucent 9 Oz",
@@ -275,7 +275,7 @@ mutation {
     <td valign="top"><b>Delete a<br>Product</b></td>
     <td valign="top">
      <pre>
-Delete(Ref(Class("Product"), "220510522473185799"))
+Delete(Ref(Class("products"), "220510522473185799"))
       </pre>
     </td>
     <td valign="top">
@@ -292,7 +292,7 @@ mutation {
     <td valign="top">
      <pre>
 Map(
-  Paginate(Match(Index("allProducts"))),
+  Paginate(Match(Index("all_products"))),
   Lambda("nextRef", Get(Var("nextRef")))
 );</pre>
     </td>
@@ -328,7 +328,7 @@ query {
     <td valign="top">
       <pre>
 Create(
-  Class("Customer"), { 
+  Class("customers"), { 
     data: { 
       "firstName": "Auria", 
       "lastName": "Osgardby", 
@@ -375,7 +375,7 @@ mutation {
     <td valign="top"><b>Read a<br>Customer</b></td>
     <td valign="top">
       <pre>
-Get(Ref(Class("Customer"), "1520225686617873"));
+Get(Ref(Class("customers"), "1520225686617873"));
       </pre>
     </td>
     <td valign="top">
@@ -404,7 +404,7 @@ query {
     <td valign="top">
      <pre>
 Update(
-  Ref(Class("Customer"), "1520225686617873"), {
+  Ref(Class("customers"), "1520225686617873"), {
     data: { 
       "firstName": "Auria", 
       "lastName": "Osgardby", 
@@ -453,7 +453,7 @@ mutation {
     <td valign="top"><b>Delete a<br>Customer</b></td>
     <td valign="top">
      <pre>
-Delete(Ref(Class("Customer"), "1520225686617873"))</pre>
+Delete(Ref(Class("customers"), "1520225686617873"))</pre>
     </td>
     <td valign="top">
       <pre>
@@ -469,7 +469,7 @@ mutation {
     <td valign="top">
      <pre>
 Map(
-  Paginate(Match(Index("allCustomers"))),
+  Paginate(Match(Index("all_customers"))),
   Lambda("nextRef", Get(Var("nextRef")))
 );</pre>
     </td>
@@ -512,7 +512,7 @@ query {
     <td valign="top">
       <pre>
 Call(
-  Function("submitOrder"), 
+  Function("submit_order"), 
     "1",
     [
       Object({
@@ -539,7 +539,7 @@ Call(
     <td valign="top"><b>Read an<br>Order</b></td>
     <td valign="top">
       <pre>
-Get(Ref(Class("Order"), "235070169871812108"));
+Get(Ref(Class("orders"), "235070169871812108"));
       </pre>
     </td>
     <td valign="top">
@@ -552,6 +552,7 @@ query {
     }
     line {
       product {
+        _id
         name
       }
       quantity
@@ -579,7 +580,7 @@ query {
     <td valign="top">
      <pre>
 Map(
-  Paginate(Match(Index("allOrders"))),
+  Paginate(Match(Index("all_orders"))),
   Lambda("nextRef", Get(Var("nextRef")))
 );</pre>
     </td>

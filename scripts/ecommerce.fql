@@ -1,18 +1,18 @@
 //----- Create Schema -----//
 
-CreateClass({name: "Warehouse"});
-CreateClass({name: "Product"});
-CreateClass({name: "Customer"});
-CreateClass({name: "Order"});
+CreateClass({name: "warehouses"});
+CreateClass({name: "products"});
+CreateClass({name: "customers"});
+CreateClass({name: "orders"});
 
-CreateIndex({"name": "allWarehouses", "source": Class("Warehouse")});
-CreateIndex({"name": "allProducts", "source": Class("Product")});
-CreateIndex({"name": "allCustomers", "source": Class("Customer")});
-CreateIndex({"name": "allOrders", "source": Class("Order")});
+CreateIndex({"name": "all_warehouses", "source": Class("warehouses")});
+CreateIndex({"name": "all_products", "source": Class("products")});
+CreateIndex({"name": "all_customers", "source": Class("customers")});
+CreateIndex({"name": "all_orders", "source": Class("orders")});
 
 CreateFunction(
   {
-    "name": "submitOrder",
+    "name": "submit_order",
     "body": Query(
       Lambda(["customerId", "products"],
         // 1- Get Customer and Products
@@ -24,7 +24,7 @@ CreateFunction(
         // function.
         Let(
           {
-            "customer": Get(Ref(Class("Customer"), Var("customerId"))),
+            "customer": Get(Ref(Class("customers"), Var("customerId"))),
             "products":
               Map(
                 Var("products"),
@@ -32,7 +32,7 @@ CreateFunction(
                   Let(
                     {
                       "product": Get(Ref(
-                        Class("Product"),
+                        Class("products"),
                         Select(
                           "productId",
                           Var("requestedProduct")
@@ -158,7 +158,7 @@ CreateFunction(
                   )
               },
               Create(
-                Class("Order"), {
+                Class("orders"), {
                   data: {
                     "customer": Select("ref", Var("customer")),
                     "line": Var("productsLine"),
@@ -189,7 +189,7 @@ Let(
   {
     "warehouse1":
       Create(
-        Class("Warehouse"), {
+        Class("warehouses"), {
           data: {
             "name": "East",
             "address": {
@@ -203,7 +203,7 @@ Let(
       ),
     "warehouse2":
       Create(
-        Class("Warehouse"), {
+        Class("warehouses"), {
           data: {
             "name": "Central",
             "address": {
@@ -217,7 +217,7 @@ Let(
       ),
     "warehouse3":
       Create(
-        Class("Warehouse"), {
+        Class("warehouses"), {
           data: {
             "name": "Central",
             "address": {
@@ -234,7 +234,7 @@ Let(
     {
     "product1":
       Create(
-        Class("Product"), {
+        Class("products"), {
           data: {
             "name": "Cup",
             "description": "Translucent 9 Oz",
@@ -248,7 +248,7 @@ Let(
       ),
     "product2":
       Create(
-        Class("Product"), {
+        Class("products"), {
           data: {
             "name": "Beef Cheek",
             "description": "Fresh",
@@ -262,7 +262,7 @@ Let(
       ),
     "product3":
       Create(
-        Class("Product"), {
+        Class("products"), {
           data: {
             "name": "Pizza",
             "description": "Frozen Cheese",
@@ -279,7 +279,7 @@ Let(
     {
       "customer1":
         Create(
-          Class("Customer"), {
+          Class("customers"), {
             data: {
               "firstName": "Auria",
               "lastName": "Osgardby",
@@ -299,7 +299,7 @@ Let(
         ),
       "customer2":
         Create(
-          Class("Customer"), {
+          Class("customers"), {
             data: {
               "firstName": "Skipper",
               "lastName": "Scanes",
@@ -319,7 +319,7 @@ Let(
         ),
       "customer3":
         Create(
-          Class("Customer"), {
+          Class("customers"), {
             data: {
               "firstName": "Ardith",
               "lastName": "Probert",
@@ -340,22 +340,22 @@ Let(
     },
       Do(
         Create(
-          Class("Order"), {
+          Class("orders"), {
             data: {
               "customer": Select("ref", Var("customer1")),
               "line": [
                 {
-                  "productId": Select("ref", Var("product1")),
+                  "product": Select("ref", Var("product1")),
                   "quantity": 10,
                   "price": Select(["data", "price"], Var("product1"))
                 },
                 {
-                  "productId": Select("ref", Var("product2")),
+                  "product": Select("ref", Var("product2")),
                   "quantity": 5,
                   "price": Select(["data", "price"], Var("product2"))
                 },
                 {
-                  "productId": Select("ref", Var("product3")),
+                  "product": Select("ref", Var("product3")),
                   "quantity": 20,
                   "price": Select(["data", "price"], Var("product3"))
                 }
@@ -368,7 +368,7 @@ Let(
           }
         ),
         Create(
-          Class("Order"), {
+          Class("orders"), {
             data: {
               "customer": Select("ref", Var("customer3")),
               "line": [
@@ -391,7 +391,7 @@ Let(
           }
         ),
         Create(
-          Class("Order"), {
+          Class("orders"), {
             data: {
               "customer": Select("ref", Var("customer2")),
               "line": [
