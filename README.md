@@ -586,7 +586,6 @@ Map(
     </td>
     <td valign="top">
       <pre>
-// TODO: reading the 'Product' from the 'line' does not work. It seems that relationships from embedded objects are not working properly.
 query {
   allOrders {
     data {
@@ -596,6 +595,7 @@ query {
       }
       line {
         product {
+          _id
           name
         }
         quantity
