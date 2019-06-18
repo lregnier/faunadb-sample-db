@@ -148,7 +148,7 @@ CreateFunction(
                     Var("products"),
                     Lambda("product",
                       {
-                        "productId": Select("ref", Var("product")),
+                        "product": Select("ref", Var("product")),
                         "quantity": Select(
                           "requestedQuantity", Var("product")
                         ),
@@ -373,12 +373,12 @@ Let(
               "customer": Select("ref", Var("customer3")),
               "line": [
                 {
-                  "productId": Select("ref", Var("product1")),
+                  "product": Select("ref", Var("product1")),
                   "quantity": 25,
                   "price": Select(["data", "price"], Var("product1"))
                 },
                 {
-                  "productId": Select("ref", Var("product3")),
+                  "product": Select("ref", Var("product3")),
                   "quantity": 10,
                   "price": Select(["data", "price"], Var("product3"))
                 }
@@ -396,12 +396,12 @@ Let(
               "customer": Select("ref", Var("customer2")),
               "line": [
                 {
-                  "productId": Select("ref", Var("product3")),
+                  "product": Select("ref", Var("product3")),
                   "quantity": 15,
                   "price": Select(["data", "price"], Var("product3"))
                 },
                 {
-                  "productId": Select("ref", Var("product2")),
+                  "product": Select("ref", Var("product2")),
                   "quantity": 45,
                   "price": Select(["data", "price"], Var("product2"))
                 }
