@@ -50,7 +50,7 @@ CreateFunction(
                         Var("product")
                       ),
                       "requestedQuantity": Select(
-                        ["requestedQuantity"],
+                        ["quantity"],
                         Var("requestedProduct")
                       ),
                       "backorderLimit": Select(

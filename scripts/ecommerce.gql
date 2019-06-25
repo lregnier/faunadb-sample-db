@@ -49,9 +49,18 @@ type ProductLine @embedded {
   price: Float!
 }
 
+input SubmitOrderProductInput {
+  productId: ID!
+  quantity: Int!
+}
+
 type Query {
   allWarehouses: [Warehouse!]! @index(name: "all_warehouses")
   allProducts: [Product!]! @index(name: "all_products")
   allCustomers: [Customer!]! @index(name: "all_customers")
   allOrders: [Order!]! @index(name: "all_orders")
+}
+
+type Mutation {
+  submitOrder(customerId: ID!, products: [SubmitOrderProductInput]): Order! @resolver(name: "submit_order")
 }
